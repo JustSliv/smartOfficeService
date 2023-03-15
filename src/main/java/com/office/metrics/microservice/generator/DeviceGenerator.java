@@ -11,11 +11,12 @@ import static com.office.metrics.microservice.enums.DeviceType.*;
 
 @Component
 @AllArgsConstructor(onConstructor_ = {@Autowired})
-public class DeviceGenerator {
+public class DeviceGenerator implements DataGenerator{
     private final static int TYPE_COUNT = 5;
 
     private DeviceService deviceService;
 
+    @Override
     public void generate(int count) {
         int countForType = count / TYPE_COUNT;
         int redundant = count % TYPE_COUNT;
@@ -24,7 +25,7 @@ public class DeviceGenerator {
             createDevices(countForType);
         }
         if (redundant != 0) {
-            createRedundant(redundant);
+            createRedundantDevices(redundant);
         }
     }
 
@@ -38,7 +39,7 @@ public class DeviceGenerator {
         }
     }
 
-    private void createRedundant(int redundant) {
+    private void createRedundantDevices(int redundant) {
         for (int i = 0; i < redundant; i++) {
             if (DeviceType.getByOrdinalNumber(i) == SNACK_MACHINE) {
                 deviceService.save(Device.device().type(SNACK_MACHINE).maxCapacity(SNACK_MACHINE.getMaxValue()).currentCapacity((int) ((Math.random() * (SNACK_MACHINE.getMaxValue() - SNACK_MACHINE.getMinValue())) + SNACK_MACHINE.getMinValue())).build());
