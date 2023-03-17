@@ -2,17 +2,24 @@ package com.office.metrics.microservice.parser;
 
 import com.office.metrics.microservice.models.Device;
 import com.office.metrics.microservice.models.Metric;
+import com.office.metrics.microservice.services.MetricService;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.time.LocalDateTime;
 
-@UtilityClass
+@Component
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class MetricParser {
 
-    public static Metric parseJSON(String filePath) {
+    private final MetricService metricService;
+
+    public Metric parseJSON(String filePath) {
         JSONObject jsonObject = null;
         try {
             FileReader reader = new FileReader(filePath);
@@ -23,9 +30,10 @@ public class MetricParser {
         }
         String value = (String) jsonObject.get("value");
         String measureTime = (String) jsonObject.get("measureTime");
-        Long deviceId = (Long) jsonObject.get("deviceId");
+        JSONObject deviceObject = (JSONObject) jsonObject.get("device");
+        Long deviceId = (Long) deviceObject.get("id");
 
-        return buildMetric(value, LocalDateTime.parse(measureTime), deviceId);
+        return metricService.save(buildMetric(value, LocalDateTime.parse(measureTime), deviceId));
     }
 
     private static Metric buildMetric(String value, LocalDateTime measureTime, Long deviceId) {

@@ -1,10 +1,7 @@
 package com.office.metrics.microservice;
 
-import com.office.metrics.microservice.generator.DeviceGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Application {
