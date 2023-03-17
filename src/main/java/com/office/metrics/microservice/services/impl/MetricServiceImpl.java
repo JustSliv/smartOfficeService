@@ -44,7 +44,7 @@ public class MetricServiceImpl implements MetricService {
     @Transactional
     public void deleteById(Long metricId) {//TODO correct handling when metric_id is not existing in DB
         if (isNull(metricId)) {
-            throw new RuntimeException("deviceId should not be:" + metricId);
+            throw new RuntimeException("metricId should not be:" + metricId);
         }
         metricRepository.deleteById(metricId);
     }
