@@ -1,6 +1,6 @@
-package com.office.officeservice.model;
+package com.office.microservice.model;
 
-import com.office.officeservice.enums.RoomType;
+import com.office.microservice.enums.RoomType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table
 @Entity
-@Builder
+@Builder(builderMethodName = "room")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {

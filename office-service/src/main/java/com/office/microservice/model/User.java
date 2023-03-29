@@ -1,4 +1,4 @@
-package com.office.officeservice.model;
+package com.office.microservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

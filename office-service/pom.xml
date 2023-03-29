@@ -6,7 +6,6 @@
         <groupId>microservice</groupId>
         <artifactId>smart-office</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.office</groupId>
     <artifactId>office-service</artifactId>
@@ -17,7 +16,10 @@
         <java.version>19</java.version>
     </properties>
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

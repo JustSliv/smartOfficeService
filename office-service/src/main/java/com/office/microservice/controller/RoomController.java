@@ -1,7 +1,7 @@
-package com.office.officeservice.controller;
+package com.office.microservice.controller;
 
-import com.office.officeservice.model.Room;
-import com.office.officeservice.service.RoomService;
+import com.office.microservice.model.Room;
+import com.office.microservice.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.office.officeservice.enums;
+package com.office.microservice.enums;
 
 public enum RoomType {
 
