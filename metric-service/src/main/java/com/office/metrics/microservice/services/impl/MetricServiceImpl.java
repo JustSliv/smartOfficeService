@@ -5,6 +5,7 @@ import com.office.metrics.microservice.exceptions.ResourceNotFoundException;
 import com.office.metrics.microservice.models.Device;
 import com.office.metrics.microservice.models.Metric;
 import com.office.metrics.microservice.repository.MetricRepository;
+import com.office.metrics.microservice.services.DeviceService;
 import com.office.metrics.microservice.services.MetricService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,18 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class MetricServiceImpl implements MetricService {
 
+    private static final String METRIC_FROM_ROOM_EVENT = "metric-from-room-event";
+
     private final MetricRepository metricRepository;
+    private final DeviceService deviceService;
     private final KafkaTemplate<String, RoomMetricDTO> kafkaTemplate;
 
     @Override
     @Transactional
     public Metric save(Metric metric) {
         Metric savedMetric = metricRepository.save(metric);
-        kafkaTemplate.send("gotMetricFromRoom", buildRoomMetricDTO(metric));
+        savedMetric.setDevice(deviceService.findById(savedMetric.getDevice().getId()));
+        kafkaTemplate.send(METRIC_FROM_ROOM_EVENT, buildRoomMetricDTO(savedMetric));
         return savedMetric;
     }
 

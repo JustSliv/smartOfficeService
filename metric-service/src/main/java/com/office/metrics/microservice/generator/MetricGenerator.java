@@ -6,36 +6,45 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static java.lang.String.format;
 
 @Component
 @AllArgsConstructor
 public class MetricGenerator implements DataGenerator {
-    /**
-     * Ticket:
-     * 1)Create MetricGenerator in which jsonFiles are created with metric properties
-     * 2)Then generated files pass through parser and save in DB.
-     */
+
+    private static final String ID = "id";
+    private static final String MEASURE_TIME = "measureTime";
+    private static final String VALUE = "value";
+    private static final String DEVICE = "device";
+    private static final String FILEPATH = "metric-service/src/main/resources/jsons/metric%d.json";
+
     @Override
     public void generate(int countToGenerate) {
-        createJSONFile();
+        createJSONFile(countToGenerate);
     }
 
-    private void createJSONFile() {
-        JSONObject jsonObject = new JSONObject();
+    private void createJSONFile(int filesToGenerate) {
+        for (int i = 1; i <= filesToGenerate; i++) {
+            LocalDateTime measureTime = LocalDateTime.now().minusMinutes(i);
+            JSONObject jsonObject = new JSONObject();
 
-        JSONObject deviceObject = new JSONObject();
-        deviceObject.put("id", 1);
+            JSONObject deviceObject = new JSONObject();
+            deviceObject.put(ID, i);
 
-        jsonObject.put("measureTime", "2019-02-03T10:08:02.432");
-        jsonObject.put("value", "20");
-        jsonObject.put("device", deviceObject);
+            jsonObject.put(MEASURE_TIME, measureTime.format(DateTimeFormatter.ISO_DATE_TIME));
+            jsonObject.put(VALUE, String.valueOf(i + 20));
+            jsonObject.put(DEVICE, deviceObject);
 
-        try{
-            FileWriter file = new FileWriter("C:\\MyJavaProjects\\smartOfficeService\\metric-service\\src\\main\\resources\\jsons\\metric.json");
-            file.write(jsonObject.toJSONString());
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                FileWriter file = new FileWriter(format(FILEPATH, i));
+                file.write(jsonObject.toJSONString());
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
