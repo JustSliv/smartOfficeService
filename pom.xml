@@ -6,14 +6,14 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>microservice</groupId>
     <artifactId>smart-office</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>smart-office</name>
-    <description>Demo project for Spring Boot</description>
+
     <modules>
         <module>metric-service</module>
         <module>office-service</module>

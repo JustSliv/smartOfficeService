@@ -1,4 +1,4 @@
-package com.office.officeservice;
+package com.office.microservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

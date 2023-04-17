@@ -1,6 +1,6 @@
-package com.office.officeservice.service;
+package com.office.microservice.service;
 
-import com.office.officeservice.model.User;
+import com.office.microservice.model.User;
 
 public interface UserService {
 

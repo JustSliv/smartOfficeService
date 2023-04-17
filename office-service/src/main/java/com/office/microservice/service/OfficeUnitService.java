@@ -1,6 +1,6 @@
-package com.office.officeservice.service;
+package com.office.microservice.service;
 
-import com.office.officeservice.model.OfficeUnit;
+import com.office.microservice.model.OfficeUnit;
 
 import java.util.List;
 

@@ -31,7 +31,7 @@ public class MetricGenerator implements DataGenerator {
         jsonObject.put("device", deviceObject);
 
         try{
-            FileWriter file = new FileWriter("E:\\322\\projects\\smart-office\\metric-service\\src\\main\\resources\\jsons\\metric.json");
+            FileWriter file = new FileWriter("C:\\MyJavaProjects\\smartOfficeService\\metric-service\\src\\main\\resources\\jsons\\metric.json");
             file.write(jsonObject.toJSONString());
             file.close();
         } catch (IOException e) {

@@ -1,11 +1,14 @@
 package com.office.metrics.microservice.services.impl;
 
+import com.office.metrics.microservice.dto.RoomMetricDTO;
 import com.office.metrics.microservice.exceptions.ResourceNotFoundException;
+import com.office.metrics.microservice.models.Device;
 import com.office.metrics.microservice.models.Metric;
 import com.office.metrics.microservice.repository.MetricRepository;
 import com.office.metrics.microservice.services.MetricService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +21,14 @@ import static java.util.Objects.isNull;
 public class MetricServiceImpl implements MetricService {
 
     private final MetricRepository metricRepository;
+    private final KafkaTemplate<String, RoomMetricDTO> kafkaTemplate;
 
     @Override
     @Transactional
     public Metric save(Metric metric) {
-        return metricRepository.save(metric);
+        Metric savedMetric = metricRepository.save(metric);
+        kafkaTemplate.send("gotMetricFromRoom", buildRoomMetricDTO(metric));
+        return savedMetric;
     }
 
     @Override
@@ -47,5 +53,12 @@ public class MetricServiceImpl implements MetricService {
             throw new RuntimeException("metricId should not be:" + metricId);
         }
         metricRepository.deleteById(metricId);
+    }
+
+    private RoomMetricDTO buildRoomMetricDTO(Metric metric) {
+        return RoomMetricDTO.roomMetricDTO()
+                .metricId(metric.getId())
+                .roomId(metric.getDevice().getRoomId())
+                .build();
     }
 }

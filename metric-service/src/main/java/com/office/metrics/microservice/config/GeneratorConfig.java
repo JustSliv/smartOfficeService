@@ -24,8 +24,8 @@ public class GeneratorConfig {
         metricGenerator.generate(1);
     }
 
-    @Bean
-    public void parseGeneratedJSON(){
-        metricParser.parseJSON("E:\\322\\projects\\smart-office\\metric-service\\src\\main\\resources\\jsons\\metric.json");
-    }
+//    @Bean
+//    public void parseGeneratedJSON(){
+//        metricParser.parseJSON("C:\\MyJavaProjects\\smartOfficeService\\metric-service\\src\\main\\resources\\jsons\\metric.json");
+//    }
 }

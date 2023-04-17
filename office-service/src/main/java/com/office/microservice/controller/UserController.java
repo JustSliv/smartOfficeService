@@ -1,7 +1,7 @@
-package com.office.officeservice.controller;
+package com.office.microservice.controller;
 
-import com.office.officeservice.model.User;
-import com.office.officeservice.service.UserService;
+import com.office.microservice.model.User;
+import com.office.microservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

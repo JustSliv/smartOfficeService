@@ -1,6 +1,6 @@
-package com.office.officeservice.repository;
+package com.office.microservice.repository;
 
-import com.office.officeservice.model.Room;
+import com.office.microservice.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
