@@ -10,5 +10,4 @@ public class MetricService {
         SpringApplication.run(MetricService.class, args);
     }
 
-
 }

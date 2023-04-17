@@ -1,5 +1,7 @@
 {
-  "value": "25",
-  "deviceId": 10,
-  "measureTime": "2019-02-03T10:08:02.432"
+  "measureTime": "2019-02-03T10:08:02.432",
+  "value": "20",
+  "device": {
+    "id": 1
+  }
 }

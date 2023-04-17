@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class GeneratorConfig {
 
+    private static final String FILEPATH = "metric-service/src/main/resources/jsons/metric%d.json";
     private final int countToGenerate = 100;
 
     private DeviceGenerator deviceGenerator;
@@ -19,13 +20,15 @@ public class GeneratorConfig {
     private MetricParser metricParser;
 
     @Bean
-    public void generateDeviceData() {
+    public void generateData() {
         deviceGenerator.generate(countToGenerate);
-        metricGenerator.generate(1);
+        metricGenerator.generate(countToGenerate);
     }
 
-//    @Bean
-//    public void parseGeneratedJSON(){
-//        metricParser.parseJSON("C:\\MyJavaProjects\\smartOfficeService\\metric-service\\src\\main\\resources\\jsons\\metric.json");
-//    }
+    @Bean
+    public void parseGeneratedJSON() {
+        for (int i = 1; i <= countToGenerate; i++) {
+            metricParser.parseJSON(String.format(FILEPATH, i));
+        }
+    }
 }

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class RoomServiceImpl implements RoomService {
 
+    private static final String METRIC_FROM_ROOM_EVENT = "metric-from-room-event";
+
     private RoomRepository roomRepository;
 
     @Override
@@ -27,7 +29,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     @Transactional(readOnly = true)
     public Room findById(Long roomId) {
-        return roomRepository.findById(roomId).orElseThrow();
+        return roomRepository.findById(roomId).orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    @KafkaListener(topics = "gotMetricFromRoom")
+    @KafkaListener(topics = METRIC_FROM_ROOM_EVENT)
     public void handleMetricFromRoom(RoomMetricDTO roomMetricDTO) {
         String roomName = findById(roomMetricDTO.getRoomId()).getRoomName();
         log.info("Metric with id={} was produced in the room {}", roomMetricDTO.getMetricId(), roomName);

@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-
 import static com.office.metrics.microservice.enums.DeviceType.*;
 
 @Component
@@ -35,9 +33,9 @@ public class DeviceGenerator implements DataGenerator {
 
     private void createDevices(int countForType) {
         for (int i = 0; i < countForType; i++) {
-            deviceService.save(Device.device().type(TEMPERATURE).roomId((long) ((Math.random() * (ROOMS_COUNT - 1)) + 1)).build());
-            deviceService.save(Device.device().type(HUMIDITY).roomId((long) ((Math.random() * (ROOMS_COUNT - 1)) + 1)).build());
-            deviceService.save(Device.device().type(LUMINOSITY).roomId((long) ((Math.random() * (ROOMS_COUNT - 1)) + 1)).build());
+            deviceService.save(Device.device().type(TEMPERATURE).roomId((long) ((Math.random() * (ROOMS_COUNT)) + 1)).build());
+            deviceService.save(Device.device().type(HUMIDITY).roomId((long) ((Math.random() * (ROOMS_COUNT)) + 1)).build());
+            deviceService.save(Device.device().type(LUMINOSITY).roomId((long) ((Math.random() * (ROOMS_COUNT)) + 1)).build());
             deviceService.save(createSnackMachineDevice());
             deviceService.save(createWaterMachineDevice());
         }
